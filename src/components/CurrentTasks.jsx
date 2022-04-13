@@ -19,7 +19,8 @@ const CurrentTasks = (props) => {
             key={item.id}
             deleteTask={props.deleteTask}
             changeStatus={props.changeStatus}
-            item={item}/>
+            item={item}
+            />
         )
       })}
     </div>
