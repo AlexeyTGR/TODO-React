@@ -1,15 +1,16 @@
+import { useMemo } from "react";
 import TaskArea from "./TaskArea";
 
-const CurrentTasks = (props) => {
-  const array = props.tasksArray.filter((item) => {
+const TasksList = (props) => {
+
+  const array = useMemo(() => {
     if (props.filterValue === 'all') {
-      return true;
-    } else if (props.filterValue === 'active') {
-      return item.status === 'active';
-    } else if (props.filterValue === 'complete') {
-      return item.status === 'complete';
-    };
-  });
+      return props.tasksArray;
+    }
+    return props.tasksArray.filter((item) => {
+      return props.filterValue === item.status;
+    })
+  }, [props.tasksArray, props.filterValue]);
 
   return (
     <div>
@@ -27,4 +28,4 @@ const CurrentTasks = (props) => {
   )
 }
 
-export default CurrentTasks
+export default TasksList
