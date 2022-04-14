@@ -1,12 +1,20 @@
 import unCheckedIcon from "../icons/unchecked.png";
 import checkedIcon from "../icons/checked.png"
+import { useState } from "react";
 
 const AddItemSection = (props) => {
-  const checkAction = (event) => {
-    props.checkActionType(event)
-  }
+  const [selectAllStatus, setSelectAllStatus] = useState(false);
 
-  const selectAllIcon = props.selectAllStatus 
+  const toggleSelectAll = () => {
+    const updatedArray = props.tasksArray.map((item) => ({
+      ...item,
+      status: selectAllStatus ? 'active' : 'complete',
+    }));
+    setSelectAllStatus(!selectAllStatus);
+    props.updateTasksArray(updatedArray);
+  };
+
+  const selectAllIcon = selectAllStatus 
     ? checkedIcon
     : unCheckedIcon;
 
@@ -14,7 +22,7 @@ const AddItemSection = (props) => {
     <div className="new-task-block">
       <button 
         className="button"
-        onClick={props.toggleSelectAll}
+        onClick={toggleSelectAll}
       >
         <img 
           className="icon"
@@ -27,9 +35,7 @@ const AddItemSection = (props) => {
         type="text"
         name="new-task" 
         placeholder="What needs to be done?"
-        onKeyDown={checkAction}
-        // value={}
-        // onChange={}
+        onKeyDown={props.checkActionType}
       />
     </div>
   )

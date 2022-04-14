@@ -1,14 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import './App.css';
+import Header from './components/header';
 import AddItemSection from "./components/AddItemSection";
 import TasksList from './components/TasksList';
 import TasksFilter from './components/TasksFilter';
+import Footer from './components/footer';
 
 const App = () => {
 
   const [tasksArray, setTasksArray] = useState([]);
   const [lastIdValue, setLastIdValue] = useState(0);
-  const [selectAllStatus, setSelectAllStatus] = useState(false);
   const [filterValue, setFilterValue] = useState('all');
 
   const createTask = (text) => {
@@ -25,15 +26,6 @@ const App = () => {
     });
   }
 
-  const toggleSelectAll = () => {
-    const updatedArray = tasksArray.map((item) => ({
-      ...item,
-      status: selectAllStatus ? 'active' : 'complete',
-    }));
-    setSelectAllStatus(!selectAllStatus);
-    setTasksArray(updatedArray);
-  };
-
   const checkActionType = (event) => {
     if (event.key === "Enter") {
       const newTaskText = event.target.value;
@@ -44,29 +36,17 @@ const App = () => {
     };
   };
 
-  const activeTasksQuantity = useMemo(() => {
-    return tasksArray.reduce((acc, item) => {
-      if (item.status === "active") {
-        return acc + 1;
-      }
-      return acc;
-    }, 0);
-  }, [tasksArray]);
-
-  const clearComplited = () => {
-    const array = tasksArray.filter((item) => {
-      return item.status !== 'complete';
-    })
-    setTasksArray(array)
+  const updateTasksArray = (arr) => {
+    setTasksArray(arr)
   }
 
   return (
     <div className="generalBlock">
-      <header className="header">todos</header>
+      <Header />
       <div className="todosBlock">
         <AddItemSection
-          toggleSelectAll={toggleSelectAll}
-          selectAllStatus={selectAllStatus}
+          tasksArray={tasksArray}
+          updateTasksArray={updateTasksArray}
           checkActionType={checkActionType}
         />
         <TasksList
@@ -75,15 +55,12 @@ const App = () => {
           filterValue={filterValue}
         />
         <TasksFilter
-          activeTasksQuantity={activeTasksQuantity}
           setFilterValue={setFilterValue}
-          clearComplited={clearComplited}
+          tasksArray={tasksArray}
+          updateTasksArray={updateTasksArray}
         />
       </div>
-      <footer className="footer">
-        <p>Double-click to edit a todo</p>
-        <p>Created by me</p>
-      </footer>
+      <Footer />
     </div>
   )
 }

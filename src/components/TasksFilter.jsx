@@ -1,18 +1,34 @@
+import { useMemo } from "react";
+
 const TasksFilter = (props) => {
-  const currentFiler = (filterValue) => {
-    props.setFilterValue(filterValue);
-  };
+
+  const activeTasksQuantity = useMemo(() => {
+    return props.tasksArray.reduce((acc, item) => {
+      if (item.status === "active") {
+        return acc + 1;
+      }
+      return acc;
+    }, 0);
+  }, [props.tasksArray]);
+
+  const clearComplited = () => {
+    const array = props.tasksArray.filter((item) => {
+      return item.status !== 'complete';
+    })
+    props.updateTasksArray(array)
+  }
+
   return (
     <div className="bottom-menu">
       <span>
-        {props.activeTasksQuantity} items left
+        {activeTasksQuantity} items left
       </span>
 
       <div>
         {filterOptions.map((filterItem) => (
           <button
             key={filterItem.value}
-            onClick={() => currentFiler(filterItem.value)}
+            onClick={() => props.setFilterValue(filterItem.value)}
           >
             {filterItem.title}
           </button>
@@ -20,7 +36,7 @@ const TasksFilter = (props) => {
       </div>
 
       <button
-        onClick={props.clearComplited}
+        onClick={clearComplited}
       >
         Clear completed
       </button>

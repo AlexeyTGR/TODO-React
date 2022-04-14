@@ -1,4 +1,4 @@
-import TaskArea from "../../src/components/TaskArea";
+// import TaskArea from "../../src/components/TaskArea";
 
 const App = () => {
   const handleTaskCreate = () => {
@@ -46,33 +46,33 @@ const App = () => {
 };
 
 
-<App>
-  <Header />
+// <App>
+//   <Header />
 
-  <TaskBlock>
+//   <TaskBlock>
 
-    <NewTask>
-      <button></button>
-      <input />
-    </NewTask>
+//     <NewTask>
+//       <button></button>
+//       <input />
+//     </NewTask>
 
-    <TaskList>
-        <TaskArea>
-            <button>status</button>
-            <TextArea>
-            <div>TODO TEXT</div>
-            </TextArea>
-            <button>delete</button>
-        </TaskArea>
-    </TaskList>
+//     <TaskList>
+//         <TaskArea>
+//             <button>status</button>
+//             <TextArea>
+//             <div>TODO TEXT</div>
+//             </TextArea>
+//             <button>delete</button>
+//         </TaskArea>
+//     </TaskList>
 
-    <TaskFilter>
-      <span>items</span>
-      <button>all, active, complete</button>
-      <button>clear all</button>
-    </TaskFilter>
+//     <TaskFilter>
+//       <span>items</span>
+//       <button>all, active, complete</button>
+//       <button>clear all</button>
+//     </TaskFilter>
 
-  </TaskBlock>
+//   </TaskBlock>
 
-  <Footer />
-</>
+//   <Footer />
+// </>
