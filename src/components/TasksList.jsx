@@ -1,31 +1,37 @@
-import { useMemo } from "react";
-import TaskArea from "./TaskArea";
+
+import TasksItem from "./TasksItem";
 
 const TasksList = (props) => {
 
-  const array = useMemo(() => {
-    if (props.filterValue === 'all') {
-      return props.tasksArray;
-    }
-    return props.tasksArray.filter((item) => {
-      return props.filterValue === item.status;
+  const deleteTaskFromArray = (id) => {
+    const updatedArray = props.tasksArray.filter((item) => {
+      return item.id !== id
     })
-  }, [props.tasksArray, props.filterValue]);
+    props.setTasksArray(updatedArray);
+  };
 
+  const changeStatus = (id) => {
+    const updatedArray = props.tasksArray.map((item) => {
+      if (item.id !== id) {
+        return item
+      }
+      return {
+        ...item,
+        status: item.status === 'active' ? 'complete' : 'active'
+      }
+    })
+    props.setTasksArray(updatedArray);
+  }
   return (
     <div>
-      {array.map((item) => {
-        return (
-          <TaskArea 
-            key={item.id}
-            deleteTask={props.deleteTask}
-            changeStatus={props.changeStatus}
-            item={item}
-            />
-        )
-      })}
+      <TasksItem
+        tasksArray={props.tasksArray}
+        deleteTask={deleteTaskFromArray}
+        changeStatus={changeStatus}
+        filterValue={props.filterValue}
+      />
     </div>
-  )
-}
+  );
+};
 
 export default TasksList

@@ -1,7 +1,7 @@
 import unCheckedIcon from "../icons/unchecked.png";
 import checkedIcon from "../icons/checked.png"
 
-const NewTask = (props) => {
+const AddItemSection = (props) => {
   const checkAction = (event) => {
     props.checkActionType(event)
   }
@@ -35,4 +35,4 @@ const NewTask = (props) => {
   )
 }
 
-export default NewTask
+export default AddItemSection

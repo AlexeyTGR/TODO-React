@@ -1,22 +1,24 @@
 const TasksFilter = (props) => {
   const currentFiler = (filterValue) => {
-    props.setFilter(filterValue);
+    props.setFilterValue(filterValue);
   };
-
   return (
     <div className="bottom-menu">
-      <span>{props.quantity}items left</span>
+      <span>
+        {props.activeTasksQuantity} items left
+      </span>
+
       <div>
-        <button
-          onClick={() => currentFiler('all')}
-        >all</button>
-        <button
-          onClick={() => currentFiler('active')}
-        >active</button>
-        <button
-          onClick={() => currentFiler('complete')}
-        >completed</button>
+        {filterOptions.map((filterItem) => (
+          <button
+            key={filterItem.value}
+            onClick={() => currentFiler(filterItem.value)}
+          >
+            {filterItem.title}
+          </button>
+        ))}
       </div>
+
       <button
         onClick={props.clearComplited}
       >
@@ -24,6 +26,21 @@ const TasksFilter = (props) => {
       </button>
     </div>
   )
-}
+};
+
+const filterOptions = [
+  {
+    title: 'all',
+    value: 'all',
+  },
+  {
+    title: 'active',
+    value: 'active',
+  },
+  {
+    title: 'complete',
+    value: 'complete',
+  },
+];
 
 export default TasksFilter
