@@ -21,7 +21,7 @@ const TasksList = (props) => {
       }
     })
     props.setTasksArray(updatedArray);
-  }
+  };
   return (
     <div>
       <TasksItem
@@ -29,6 +29,7 @@ const TasksList = (props) => {
         deleteTask={deleteTaskFromArray}
         changeStatus={changeStatus}
         filterValue={props.filterValue}
+        setTasksArray={props.setTasksArray}
       />
     </div>
   );

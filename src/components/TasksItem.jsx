@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import TaskArea from "./TaskArea";
+import TaskTitle from "./TaskTitle";
 
 const TaskItem = (props) => {
 
@@ -12,15 +12,28 @@ const TaskItem = (props) => {
     })
   }, [props.tasksArray, props.filterValue]);
 
+  const onChangeText = (text, id) => {
+    const updatedArray = props.tasksArray.map((item) => {
+      if(item.id === id) {
+        
+        item.value = text;
+      }
+      return item;
+    })
+    props.setTasksArray(updatedArray);
+  }
+
   return (
     <div>
       {array.map((item) => {
         return (
-          <TaskArea 
+          <TaskTitle 
             key={item.id}
             deleteTask={props.deleteTask}
             changeStatus={props.changeStatus}
             item={item}
+            setTasksArray={props.setTasksArray}
+            onChangeText={onChangeText}
             />
         )
       })}
