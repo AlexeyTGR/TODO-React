@@ -68,6 +68,13 @@ body {
   padding: 16px;
 }
 
+.task-item__input-block {
+  font-size: 24px;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
 .bottom-menu {
   display: flex;
   justify-content: space-between;

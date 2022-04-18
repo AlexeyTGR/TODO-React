@@ -4,7 +4,7 @@ const TaskInput = (props) => {
   const { item, onChangeText } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [oldInputValue, setOldInputValue] = useState('');
-  const checkInputType = () => {
+  const checkInputType = (event) => {
     onChangeText(event.target.value, item.id);
   };
   const checkActionType = (event) => {
@@ -26,7 +26,8 @@ const TaskInput = (props) => {
     >
       {isEditing
         ? (
-          <input
+          <input 
+            className="task-item__input-block"
             value={item.value}
             onChange={checkInputType}
             onKeyDown={checkActionType}

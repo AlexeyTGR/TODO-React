@@ -1,30 +1,36 @@
 import unCheckedIcon from "../icons/unchecked.png";
 import checkedIcon from "../icons/checked.png"
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setTodoList } from "../store/todos/actions";
 
 const AddItemSection = (props) => {
   const [selectAllStatus, setSelectAllStatus] = useState(false);
+  const dispatch = useDispatch();
+  const prevTodos = (state) => state.todos.todoList;
+  const todos = useSelector(prevTodos)
 
   const toggleSelectAll = () => {
-    const updatedArray = props.tasksArray.map((item) => ({
+    const updatedArray = todos.map((item) => ({
       ...item,
       status: selectAllStatus ? 'active' : 'complete',
     }));
     setSelectAllStatus(!selectAllStatus);
-    props.updateTasksArray(updatedArray);
+    dispatch(setTodoList(updatedArray));
   };
 
-  const selectAllIcon = selectAllStatus 
+  const selectAllIcon = selectAllStatus
     ? checkedIcon
     : unCheckedIcon;
 
   return (
     <div className="new-task-block">
-      <button 
+      <button
         className="button"
         onClick={toggleSelectAll}
       >
-        <img 
+        <img
           className="icon"
           src={selectAllIcon}
         />
@@ -33,7 +39,7 @@ const AddItemSection = (props) => {
       <input
         id="new-task"
         type="text"
-        name="new-task" 
+        name="new-task"
         placeholder="What needs to be done?"
         onKeyDown={props.onChangeActionType}
       />

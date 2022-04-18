@@ -1,21 +1,27 @@
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { setTodoList } from "../store/todos/actions";
+import { useDispatch } from "react-redux";
 
 const TasksFilter = (props) => {
+  const dispatch = useDispatch()
+  const prevTodos = state => state.todos.todoList;
+  const todos = useSelector(prevTodos)
 
   const activeTasksCounter = useMemo(() => {
-    return props.tasksArray.reduce((acc, item) => {
+    return todos.reduce((acc, item) => {
       if (item.status === "active") {
         return acc + 1;
       };
       return acc;
     }, 0);
-  }, [props.tasksArray]);
+  }, [todos]);
 
   const clearComplitedTasks = () => {
-    const array = props.tasksArray.filter((item) => {
+    const updatedArray = todos.filter((item) => {
       return item.status !== 'complete';
     });
-    props.updateTasksArray(array);
+    dispatch(setTodoList(updatedArray));
   };
   const filterOptions = [
     {
