@@ -1,8 +1,8 @@
 const Footer = () => {
-  return (<footer className="footer">
+  return (<footer>
     <p>Double-click to edit a todo</p>
     <p>Created by me</p>
-  </footer>)
-}
+  </footer>);
+};
 
-export default Footer
+export default Footer;

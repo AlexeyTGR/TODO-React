@@ -1,30 +1,22 @@
 import { createStore } from "redux";
 import rootReducer from "./rootReducer";
-// const initialState = {
-//   name: 'Alex'
-// }
+import {persistStore, persistReducer} from "redux-persist";
+import storage from 'redux-persist/lib/storage';
 
-// const reducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case 'CHANGE_NAME':
-//       return {
-//         ...state,
-//         name: action.name
-//       }
-//     default:
-//       return state
-//   }
-// }
-// export const changeName = (name) => {
-//   return {
-//     type: 'CHANGE_NAME',
-//     name: name
-//   }
-// }
+const persistConfig = {
+  key: 'root',
+  storage,
+};
 
-const store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export default store;
+// const store = createStore(
+//   rootReducer,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// );
+
+export default () => {
+  let store = createStore(persistedReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  let persistor = persistStore(store)
+  return { store, persistor }
+}

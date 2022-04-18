@@ -1,3 +1,4 @@
 const STORE_REFIX = 'TODO_';
 
 export const SET_TODO_LIST = `${STORE_REFIX}SET_TODO_LIST`;
+export const SET_FILTER_VALUE = `${STORE_REFIX}SET_FILTER_VALUE`;

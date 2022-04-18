@@ -1,50 +1,53 @@
-import React from "react";
-import TasksItem from "./TasksItem";
-import { useSelector } from "react-redux";
-import { dispatch } from "react";
+import { useMemo } from "react";
+import TaskTitle from "./TaskTitle";
+import { useSelector, useDispatch } from "react-redux";
 import { setTodoList } from "../store/todos/actions";
 
+//const TaskItem
 const TasksList = (props) => {
+  const dispatch = useDispatch();
+  const currentTodoList = useSelector(state => state.todos.todoList);
+  const filterValue = useSelector(state => state.todos.filterValue);
 
-  const prevTodos = state => state.todos.todoList;
-  const todos = useSelector(prevTodos)
+  const array = useMemo(() => {
+    if (filterValue === 'all') {
+      return currentTodoList;
+    };
 
-  // const deleteTaskFromArray = (id) => {
-  //   const updatedArray = todos.filter((item) => {
-  //     return item.id !== id
-  //   })
-  //   dispatch(setTodoList(updatedArray))
-  // };
-  // const deleteTaskFromArray = (id) => {
-  //   const updatedArray = props.tasksArray.filter((item) => {
-  //     return item.id !== id
-  //   })
-  //   props.updateTasksArray(updatedArray);
-  // };
+    return currentTodoList.filter((item) => {
+      return filterValue === item.status;
+    });
+  }, [currentTodoList, filterValue]);
 
-  // const taskStatusHandle = (id) => {
-  //   const updatedArray = props.tasksArray.map((item) => {
-  //     if (item.id !== id) {
-  //       return item
-  //     }
-  //     return {
-  //       ...item,
-  //       status: item.status === 'active' ? 'complete' : 'active'
-  //     }
-  //   })
-  //   props.updateTasksArray(updatedArray);
-  // };
+  const onChangeText = (text, id) => {
+    const updatedArray = currentTodoList.map((item) => {
+      if (item.id === id) {
+        return {
+        ...item,
+        value: text,
+      }
+    }
+
+      return item;
+    })
+    dispatch(setTodoList(updatedArray))
+  }
+
   return (
     <div>
-      <TasksItem
-        tasksArray={props.tasksArray}
-        // deleteTask={deleteTaskFromArray}
-        // changeTaskStatus={taskStatusHandle}
-        filterValue={props.filterValue}
-        setTasksArray={props.updateTasksArray}
-      />
+      {array.map((item) => {
+
+        return (
+          <TaskTitle
+            key={item.id}
+            item={item}
+            onChangeText={onChangeText}
+          />
+        )
+      })}
     </div>
-  );
-};
+  )
+}
 
 export default TasksList
+//TaskItem

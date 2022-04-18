@@ -1,5 +1,5 @@
 import unCheckedIcon from "../icons/unchecked.png";
-import checkedIcon from "../icons/checked.png"
+import checkedIcon from "../icons/checked.png";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -8,11 +8,11 @@ import { setTodoList } from "../store/todos/actions";
 const AddItemSection = (props) => {
   const [selectAllStatus, setSelectAllStatus] = useState(false);
   const dispatch = useDispatch();
-  const prevTodos = (state) => state.todos.todoList;
-  const todos = useSelector(prevTodos)
+  const currentTodos = (state) => state.todos.todoList;
+  const todosArray = useSelector(currentTodos);
 
   const toggleSelectAll = () => {
-    const updatedArray = todos.map((item) => ({
+    const updatedArray = todosArray.map((item) => ({
       ...item,
       status: selectAllStatus ? 'active' : 'complete',
     }));
@@ -44,7 +44,7 @@ const AddItemSection = (props) => {
         onKeyDown={props.onChangeActionType}
       />
     </div>
-  )
-}
+  );
+};
 
-export default AddItemSection
+export default AddItemSection;

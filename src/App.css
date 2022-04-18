@@ -10,12 +10,13 @@ body {
   border: none;
   color: #808080;
   cursor: pointer;
+  vertical-align: middle;
+  padding: 0 15px;
 }
 
 .mark-text {
   text-decoration: line-through;
   opacity: 0.5;
-  background-color: lightcyan;
 }
 
 .general-block {
@@ -25,7 +26,7 @@ body {
   margin-right: auto;
 }
 
-.header {
+header {
   color: rgba(175, 47, 47, 0.15);
   font-size: 100px;
   text-align: center;
@@ -36,12 +37,15 @@ body {
   box-shadow: 0 0 10px 0px grey;
 }
 
+.new-task-block {
+  border-bottom: 1px solid #80808030;
+}
+
 #new-task {
   font-size: 24px;
   border: none;
   padding: 16px;
   outline: none;
-  border-bottom: 1px solid #80808030;
 }
 
 #new-task::placeholder {
@@ -82,7 +86,7 @@ body {
   color: #bfbfbf;
 }
 
-.footer {
+footer {
   color: #bfbfbf;
   font-size: 10px;
   text-shadow: 0 1px 0 rgb(255 255 255 / 50%);

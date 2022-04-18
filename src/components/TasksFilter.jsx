@@ -1,12 +1,11 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setTodoList } from "../store/todos/actions";
-import { useDispatch } from "react-redux";
+import { setFilterValue } from "../store/todos/actions";
 
-const TasksFilter = (props) => {
-  const dispatch = useDispatch()
-  const prevTodos = state => state.todos.todoList;
-  const todos = useSelector(prevTodos)
+const TasksFilter = () => {
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos.todoList);
 
   const activeTasksCounter = useMemo(() => {
     return todos.reduce((acc, item) => {
@@ -49,14 +48,17 @@ const TasksFilter = (props) => {
           <button
             className="button"
             key={filterItem.value}
-            onClick={() => props.onFilterChange(filterItem.value)}
+            onClick={() => {
+              dispatch(setFilterValue(filterItem.value));
+
+            }}
           >
             {filterItem.title}
           </button>
         ))}
       </div>
 
-      <button 
+      <button
         className="button"
         onClick={clearComplitedTasks}
       >
