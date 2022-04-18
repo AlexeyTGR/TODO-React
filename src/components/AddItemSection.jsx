@@ -35,7 +35,7 @@ const AddItemSection = (props) => {
         type="text"
         name="new-task" 
         placeholder="What needs to be done?"
-        onKeyDown={props.checkActionType}
+        onKeyDown={props.onChangeActionType}
       />
     </div>
   )

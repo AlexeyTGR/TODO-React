@@ -5,13 +5,18 @@ body {
   display: block;
 }
 
+.button {
+  background: inherit;
+  border: none;
+}
+
 .mark-text {
   text-decoration: line-through;
   opacity: 0.5;
   background-color: lightcyan;
 }
 
-.generalBlock {
+.general-block {
   max-width: 550px;
   width: 100%;
   margin-left: auto;
@@ -24,21 +29,38 @@ body {
   text-align: center;
 }
 
-.todosBlock {
+.todos-block {
   background-color: white;
+  box-shadow: 0 0 10px 0px grey;
 }
 
-.taskItem {
+#new-task {
+  font-size: 24px;
+  border: none;
+  padding: 16px;
+  outline: none;
+}
+
+#new-task::placeholder {
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.task-item {
   display: flex;
 }
 
 .icon {
   width: 30px;
   height: 30px;
+  background: inherit;
+  opacity: 0.6;
 }
 
-.taskItem__textBlock {
+.task-item__text-block {
+  font-size: 24px;
   width: 100%;
+  padding: 16px;
 }
 
 .bottom-menu {

@@ -7,12 +7,12 @@ const TaskTitle = (props) => {
   const { item, onChangeText } = props;
   const isComplete = item.status === 'complete'
   const checkIcon = isComplete ? checkedIcon : unCheckedIcon
-  const classNameForItem = `taskItem__textBlock ${isComplete ? 'mark-text' : ''}`
+  const classNameForItem = `task-item__text-block ${isComplete ? 'mark-text' : ''}`
 
   return (
-    <div className="taskItem">
+    <div className="task-item">
       <button
-        onClick={() => props.changeStatus(item.id)}
+        onClick={() => props.changeTaskStatus(item.id)}
         className="button"
       >
         <img

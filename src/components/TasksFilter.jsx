@@ -2,33 +2,47 @@ import { useMemo } from "react";
 
 const TasksFilter = (props) => {
 
-  const activeTasksQuantity = useMemo(() => {
+  const activeTasksCounter = useMemo(() => {
     return props.tasksArray.reduce((acc, item) => {
       if (item.status === "active") {
         return acc + 1;
-      }
+      };
       return acc;
     }, 0);
   }, [props.tasksArray]);
 
-  const clearComplited = () => {
+  const clearComplitedTasks = () => {
     const array = props.tasksArray.filter((item) => {
       return item.status !== 'complete';
-    })
-    props.updateTasksArray(array)
-  }
+    });
+    props.updateTasksArray(array);
+  };
+  const filterOptions = [
+    {
+      title: 'all',
+      value: 'all',
+    },
+    {
+      title: 'active',
+      value: 'active',
+    },
+    {
+      title: 'complete',
+      value: 'complete',
+    },
+  ];
 
   return (
     <div className="bottom-menu">
       <span>
-        {activeTasksQuantity} items left
+        {activeTasksCounter} items left
       </span>
 
       <div>
         {filterOptions.map((filterItem) => (
           <button
             key={filterItem.value}
-            onClick={() => props.setFilterValue(filterItem.value)}
+            onClick={() => props.onFilterChange(filterItem.value)}
           >
             {filterItem.title}
           </button>
@@ -36,27 +50,12 @@ const TasksFilter = (props) => {
       </div>
 
       <button
-        onClick={clearComplited}
+        onClick={clearComplitedTasks}
       >
         Clear completed
       </button>
     </div>
-  )
+  );
 };
 
-const filterOptions = [
-  {
-    title: 'all',
-    value: 'all',
-  },
-  {
-    title: 'active',
-    value: 'active',
-  },
-  {
-    title: 'complete',
-    value: 'complete',
-  },
-];
-
-export default TasksFilter
+export default TasksFilter;

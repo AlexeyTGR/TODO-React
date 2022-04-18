@@ -1,4 +1,3 @@
-
 import TasksItem from "./TasksItem";
 
 const TasksList = (props) => {
@@ -7,10 +6,10 @@ const TasksList = (props) => {
     const updatedArray = props.tasksArray.filter((item) => {
       return item.id !== id
     })
-    props.setTasksArray(updatedArray);
+    props.updateTasksArray(updatedArray);
   };
 
-  const changeStatus = (id) => {
+  const taskStatusHandle = (id) => {
     const updatedArray = props.tasksArray.map((item) => {
       if (item.id !== id) {
         return item
@@ -20,16 +19,16 @@ const TasksList = (props) => {
         status: item.status === 'active' ? 'complete' : 'active'
       }
     })
-    props.setTasksArray(updatedArray);
+    props.updateTasksArray(updatedArray);
   };
   return (
     <div>
       <TasksItem
         tasksArray={props.tasksArray}
         deleteTask={deleteTaskFromArray}
-        changeStatus={changeStatus}
+        changeTaskStatus={taskStatusHandle}
         filterValue={props.filterValue}
-        setTasksArray={props.setTasksArray}
+        setTasksArray={props.updateTasksArray}
       />
     </div>
   );

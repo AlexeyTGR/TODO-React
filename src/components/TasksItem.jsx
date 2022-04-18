@@ -30,7 +30,7 @@ const TaskItem = (props) => {
           <TaskTitle 
             key={item.id}
             deleteTask={props.deleteTask}
-            changeStatus={props.changeStatus}
+            changeTaskStatus={props.changeTaskStatus}
             item={item}
             setTasksArray={props.setTasksArray}
             onChangeText={onChangeText}

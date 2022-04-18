@@ -24,9 +24,9 @@ const App = () => {
     setTasksArray((prevList) => {
       return [...prevList, newTaskObject];
     });
-  }
+  };
 
-  const checkActionType = (event) => {
+  const HandleInputActionType = (event) => {
     if (event.key === "Enter") {
       const newTaskText = event.target.value;
       createTask(newTaskText);
@@ -37,32 +37,32 @@ const App = () => {
   };
 
   const updateTasksArray = (arr) => {
-    setTasksArray(arr)
-  }
+    setTasksArray(arr);
+  };
 
   return (
-    <div className="generalBlock">
+    <div className="general-block">
       <Header />
-      <div className="todosBlock">
+      <div className="todos-block">
         <AddItemSection
-          tasksArray={tasksArray}
-          updateTasksArray={updateTasksArray}
-          checkActionType={checkActionType}
+          tasksArray={tasksArray} 
+          updateTasksArray={updateTasksArray} 
+          onChangeActionType={HandleInputActionType}
         />
         <TasksList
           tasksArray={tasksArray}
-          setTasksArray={setTasksArray}
+          updateTasksArray={updateTasksArray}
           filterValue={filterValue}
         />
         <TasksFilter
-          setFilterValue={setFilterValue}
+          onFilterChange={setFilterValue}
           tasksArray={tasksArray}
           updateTasksArray={updateTasksArray}
         />
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default App;
