@@ -33,7 +33,7 @@ const TasksFilter = (props) => {
   ];
 
   return (
-    <div className="bottom-menu">
+    <div className="bottom-menu button">
       <span>
         {activeTasksCounter} items left
       </span>
@@ -41,6 +41,7 @@ const TasksFilter = (props) => {
       <div>
         {filterOptions.map((filterItem) => (
           <button
+            className="button"
             key={filterItem.value}
             onClick={() => props.onFilterChange(filterItem.value)}
           >
@@ -49,7 +50,8 @@ const TasksFilter = (props) => {
         ))}
       </div>
 
-      <button
+      <button 
+        className="button"
         onClick={clearComplitedTasks}
       >
         Clear completed
