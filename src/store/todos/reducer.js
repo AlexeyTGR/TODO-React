@@ -3,7 +3,6 @@ import {
   SET_TODO_LIST,
   UPDATE_TODO,
   TOGGLE_SELECT_ALL,
-  SELECT_ALL_STATUS,
   DELETE_TASK,
   CHANGE_TASK_STATUS,
   CLEAR_COMPLETED_TASKS,
@@ -22,18 +21,13 @@ export default (store = getIntialStore(), { type, data }) => {
         ...store,
         todoList: data,
       };
-    case SELECT_ALL_STATUS:
-      return {
-        ...store,
-        selectAllStatus: data,
-      };
     case TOGGLE_SELECT_ALL:
       return {
         ...store,
-        selectAllStatus: data,
+        selectAllStatus: !store.selectAllStatus,
         todoList: store.todoList.map((item) => ({
           ...item,
-          status: data ? 'active' : 'complete',
+          status: store.selectAllStatus ? 'active' : 'complete',
         }))
       };
     case UPDATE_TODO:
@@ -84,6 +78,6 @@ export default (store = getIntialStore(), { type, data }) => {
 
     default:
       return store;
-  };
+  }
 };
 

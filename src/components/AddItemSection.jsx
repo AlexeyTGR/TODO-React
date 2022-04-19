@@ -1,15 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import unCheckedIcon from '../icons/unchecked.png';
 import checkedIcon from '../icons/checked.png';
-import { toggleSelectAll, setToggleSelectAllStatus } from '../store/todos/actions';
+import { toggleSelectAll } from '../store/todos/actions';
 
 const AddItemSection = (props) => {
   const dispatch = useDispatch();
   const selectAllStatus = useSelector((state) => state.todos.selectAllStatus);
 
   const toggleSelect = () => {
-    dispatch(toggleSelectAll(selectAllStatus));
-    dispatch(setToggleSelectAllStatus(!selectAllStatus));
+    dispatch(toggleSelectAll());
   };
   const selectAllIcon = selectAllStatus
     ? checkedIcon

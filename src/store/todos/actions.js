@@ -2,7 +2,6 @@ import {
   SET_TODO_LIST,
   SET_FILTER_VALUE,
   UPDATE_TODO,
-  SELECT_ALL_STATUS,
   TOGGLE_SELECT_ALL,
   DELETE_TASK,
   CHANGE_TASK_STATUS,
@@ -45,12 +44,6 @@ export const upateTodoValue = (id, text) => ({
     text
   }
 });
-
-export const setToggleSelectAllStatus = (data) => ({
-  type: SELECT_ALL_STATUS,
-  data
-});
-
 
 export const toggleSelectAll = (data) => ({
   type: TOGGLE_SELECT_ALL,
