@@ -1,13 +1,12 @@
-import { useMemo } from "react";
-import TaskTitle from "./TaskTitle";
-import { useSelector, useDispatch } from "react-redux";
-import { setTodoList } from "../store/todos/actions";
+import { useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import TaskTitle from './TaskTitle';
+import { setTodoList } from '../store/todos/actions';
 
-//const TaskItem
-const TasksList = (props) => {
+const TasksList = () => {
   const dispatch = useDispatch();
-  const currentTodoList = useSelector(state => state.todos.todoList);
-  const filterValue = useSelector(state => state.todos.filterValue);
+  const currentTodoList = useSelector((state) => state.todos.todoList);
+  const filterValue = useSelector((state) => state.todos.filterValue);
 
   const array = useMemo(() => {
     if (filterValue === 'all') {
@@ -23,15 +22,14 @@ const TasksList = (props) => {
     const updatedArray = currentTodoList.map((item) => {
       if (item.id === id) {
         return {
-        ...item,
-        value: text,
+          ...item,
+          value: text,
+        };
       }
-    }
-
       return item;
-    })
-    dispatch(setTodoList(updatedArray))
-  }
+    });
+    dispatch(setTodoList(updatedArray));
+  };
 
   return (
     <div>
@@ -46,8 +44,7 @@ const TasksList = (props) => {
         )
       })}
     </div>
-  )
-}
+  );
+};
 
-export default TasksList
-//TaskItem
+export default TasksList;

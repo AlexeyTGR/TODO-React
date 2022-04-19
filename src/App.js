@@ -1,51 +1,46 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Header from './components/header';
-import AddItemSection from "./components/AddItemSection";
+import AddItemSection from './components/AddItemSection';
 import TasksList from './components/TasksList';
 import TasksFilter from './components/TasksFilter';
 import Footer from './components/footer';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { setTodoList } from './store/todos/actions';
 
 const App = () => {
-  const [lastIdValue, setLastIdValue] = useState(0);
   const dispatch = useDispatch();
-  const prevTodos = (state) => state.todos.todoList;
-  const todos = useSelector(prevTodos);
+  const todoList = useSelector((state) => state.todos.todoList);
 
   const createTask = (text) => {
-    const lastId = lastIdValue;
-    const newId = lastId + 1;
+    const newID = new Date;
     const newTaskObject = {
-      id: newId,
+      id: parseInt(newID.getTime()),
       status: 'active',
       value: text,
     };
-    setLastIdValue(newId);
-    const updatedTasks = [...todos, newTaskObject];
+    const updatedTasks = [...todoList, newTaskObject];
     dispatch(setTodoList(updatedTasks))
   };
 
   const inputActionTypeHandle = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       const newTaskText = event.target.value.trim();
       if (newTaskText !== ''){
         createTask(newTaskText);
         };
       event.target.value = '';
-    } else if (event.key === "Escape") {
+    } else if (event.key === 'Escape') {
       event.target.value = '';
     };
   };
 
   return (
 
-    <div className="general-block">
+    <div className='general-block'>
       <Header />
 
-      <div className="todos-block">
+      <div className='todos-block'>
         <AddItemSection
           onChangeActionType={inputActionTypeHandle}
         />

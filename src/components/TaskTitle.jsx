@@ -1,51 +1,47 @@
-import TaskInput from "./TaskInput";
-import DeleteIcon from "../icons/DeleteIcon.png";
-import unCheckedIcon from "../icons/unchecked.png";
-import checkedIcon from "../icons/checked.png"
-import { useSelector } from "react-redux";
-import { setTodoList } from "../store/todos/actions";
-// import store from "../store";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
+import { setTodoList } from '../store/todos/actions';
+import TaskInput from './TaskInput';
+import DeleteIcon from '../icons/DeleteIcon.png';
+import unCheckedIcon from '../icons/unchecked.png';
+import checkedIcon from '../icons/checked.png'
 
 const TaskTitle = (props) => {
   const { item, onChangeText } = props;
-  const isComplete = item.status === 'complete'
-  const checkIcon = isComplete ? checkedIcon : unCheckedIcon
-  const classNameForItem = `task-item__text-block ${isComplete ? 'mark-text' : ''}`
-  const dispatch = useDispatch()
-
-  const prevTodos = state => state.todos.todoList;
-  const todos = useSelector(prevTodos)
+  const isComplete = item.status === 'complete';
+  const checkIcon = isComplete ? checkedIcon : unCheckedIcon;
+  const classNameForItem = `task-item__text-block ${isComplete ? 'mark-text' : ''}`;
+  const dispatch = useDispatch();
+  const todoList = useSelector((state) => state.todos.todoList);
 
   const deleteTaskFromArray = (id) => {
-    const updatedArray = todos.filter((item) => {
+    const updatedArray = todoList.filter((item) => {
       console.log(item);
-      return item.id !== id
-    })
-    dispatch(setTodoList(updatedArray))
+      return item.id !== id;
+    });
+    dispatch(setTodoList(updatedArray));
   };
 
   const changeTaskStatus = (id) => {
-    const updatedArray = todos.map((item) => {
+    const updatedArray = todoList.map((item) => {
       if (item.id !== id) {
-        return item
+        return item;
       }
       return {
         ...item,
         status: item.status === 'active' ? 'complete' : 'active'
-      }
-    })
+      };
+    });
     dispatch(setTodoList(updatedArray));
   };
 
   return (
-    <div className="task-item">
+    <div className='task-item'>
       <button
         onClick={() => changeTaskStatus(item.id)}
-        className="button"
+        className='button'
       >
         <img
-          className="icon"
+          className='icon'
           src={checkIcon}
         />
       </button>
@@ -59,16 +55,15 @@ const TaskTitle = (props) => {
 
       <button
         onClick={() => deleteTaskFromArray(item.id)}
-        // onClick={() => props.deleteTask(item.id)}
-        className="button"
+        className='button'
       >
         <img
-          className="icon"
+          className='icon'
           src={DeleteIcon}
         />
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default TaskTitle
+export default TaskTitle;

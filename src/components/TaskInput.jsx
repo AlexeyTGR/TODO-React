@@ -1,14 +1,10 @@
-import { useState } from "react"
+import { useState } from 'react'
 
 const TaskInput = (props) => {
   const { item, onChangeText: onTextChange } = props;
   const [isEditing, setIsEditing] = useState(false);
-  // const [oldInputValue, setOldInputValue] = useState('');
   const [state, setState] = useState(item.value);
   let textValueBeforeEdit = '';
-  // const checkInputType = (event) => {
-  //   onTextChange(event.target.value, item.id);
-  // };
 
   const confirmChanges = () => {
     setIsEditing(false);
@@ -16,31 +12,28 @@ const TaskInput = (props) => {
   }
   const checkActionType = (event) => {
     if (event.key === 'Enter') {
-      confirmChanges()
+      confirmChanges();
     } else if (event.key === 'Escape') {
-      setState(item.value)
-      // onTextChange(oldInputValue, item.id)
-      setIsEditing(false)
-    } 
-  }
+      setState(item.value);
+      setIsEditing(false);
+    };
+  };
 
   return (
     <div
       className={props.classNameForItem}
       onDoubleClick={() => {
         setIsEditing(!isEditing)
-        // setOldInputValue(item.value)
         textValueBeforeEdit = item.value
-        console.log('textValueBeforeEdit',textValueBeforeEdit);
+        console.log('textValueBeforeEdit', textValueBeforeEdit);
       }}
     >
       {isEditing
         ? (
-          <input 
+          <input
             className="task-item__input-block"
             onBlur={confirmChanges}
             value={state}
-            // onChange={checkInputType}
             onChange={(e) => setState(e.target.value)}
             onKeyDown={checkActionType}
             id="text-to-edit"
@@ -55,7 +48,7 @@ const TaskInput = (props) => {
         )
       }
     </div>
-  )
-}
+  );
+};
 
-export default TaskInput
+export default TaskInput;
