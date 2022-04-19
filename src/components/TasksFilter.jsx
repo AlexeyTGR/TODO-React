@@ -1,22 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setTodoList, setFilterValue } from '../store/todos/actions';
-import { activeTasksCounter } from '../store/todos/selectors';
+import { setFilterValue, clearCompletedTasks } from '../store/todos/actions';
+import { todoListSelector } from '../store/todos/selectors';
 
 const TasksFilter = () => {
+  const { activeTasksCounter } = useSelector(todoListSelector);
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos.todoList);
+  const todoList = useSelector((state) => state.todos.todoList);
 
-  const counter = () => {
-   return  useSelector(activeTasksCounter)
-  }
-  const activeCount = counter();
-
-  const clearComplitedTasks = () => {
-    const updatedArray = todos.filter((item) => {
-      return item.status !== 'complete';
-    });
-    dispatch(setTodoList(updatedArray));
+  const clearComplitedTasksHandle = () => {
+    dispatch(clearCompletedTasks(todoList));
   };
+
   const filterOptions = [
     {
       title: 'all',
@@ -34,18 +28,17 @@ const TasksFilter = () => {
 
   return (
     <div className='bottom-menu button'>
-      <span>
-        {activeCount} items left
+      <span className='bottom-menu__active-task-counter'>
+        {activeTasksCounter} items left
       </span>
 
-      <div>
+      <div className='bottom-menu__filters'>
         {filterOptions.map((filterItem) => (
           <button
             className='button'
             key={filterItem.value}
             onClick={() => {
               dispatch(setFilterValue(filterItem.value));
-
             }}
           >
             {filterItem.title}
@@ -55,7 +48,7 @@ const TasksFilter = () => {
 
       <button
         className='button'
-        onClick={clearComplitedTasks}
+        onClick={clearComplitedTasksHandle}
       >
         Clear completed
       </button>

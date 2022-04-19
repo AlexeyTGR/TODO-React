@@ -1,43 +1,29 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { setTodoList } from '../store/todos/actions';
+import { useDispatch } from 'react-redux';
+import { deleteTask, changeTaskStatus } from '../store/todos/actions';
 import TaskInput from './TaskInput';
 import DeleteIcon from '../icons/DeleteIcon.png';
 import unCheckedIcon from '../icons/unchecked.png';
-import checkedIcon from '../icons/checked.png'
+import checkedIcon from '../icons/checked.png';
 
 const TaskTitle = (props) => {
   const { item, onChangeText } = props;
+  const dispatch = useDispatch();
+
   const isComplete = item.status === 'complete';
   const checkIcon = isComplete ? checkedIcon : unCheckedIcon;
   const classNameForItem = `task-item__text-block ${isComplete ? 'mark-text' : ''}`;
-  const dispatch = useDispatch();
-  const todoList = useSelector((state) => state.todos.todoList);
 
   const deleteTaskFromArray = (id) => {
-    const updatedArray = todoList.filter((item) => {
-      console.log(item);
-      return item.id !== id;
-    });
-    dispatch(setTodoList(updatedArray));
+    dispatch(deleteTask(id));
   };
-
-  const changeTaskStatus = (id) => {
-    const updatedArray = todoList.map((item) => {
-      if (item.id !== id) {
-        return item;
-      }
-      return {
-        ...item,
-        status: item.status === 'active' ? 'complete' : 'active'
-      };
-    });
-    dispatch(setTodoList(updatedArray));
+  const changeStatus = (id) => {
+    dispatch(changeTaskStatus(id));
   };
 
   return (
     <div className='task-item'>
       <button
-        onClick={() => changeTaskStatus(item.id)}
+        onClick={() => changeStatus(item.id)}
         className='button'
       >
         <img

@@ -10,7 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 const container = document.getElementById('root');
 const root = createRoot(container);
 
-const {persistor, store} = getStore()
+const { persistor, store } = getStore();
 
 root.render(
   <StrictMode>

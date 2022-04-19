@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import Header from './components/header';
@@ -26,9 +25,9 @@ const App = () => {
   const inputActionTypeHandle = (event) => {
     if (event.key === 'Enter') {
       const newTaskText = event.target.value.trim();
-      if (newTaskText !== ''){
+      if (newTaskText !== '') {
         createTask(newTaskText);
-        };
+      };
       event.target.value = '';
     } else if (event.key === 'Escape') {
       event.target.value = '';
@@ -36,7 +35,6 @@ const App = () => {
   };
 
   return (
-
     <div className='general-block'>
       <Header />
 

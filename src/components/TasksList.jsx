@@ -1,47 +1,26 @@
-import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import TaskTitle from './TaskTitle';
-import { setTodoList } from '../store/todos/actions';
+import { upateTodoValue } from '../store/todos/actions';
+import { todoListSelector } from '../store/todos/selectors';
 
 const TasksList = () => {
+  const {filteredTodoList} = useSelector(todoListSelector);
   const dispatch = useDispatch();
-  const currentTodoList = useSelector((state) => state.todos.todoList);
-  const filterValue = useSelector((state) => state.todos.filterValue);
-
-  const array = useMemo(() => {
-    if (filterValue === 'all') {
-      return currentTodoList;
-    };
-
-    return currentTodoList.filter((item) => {
-      return filterValue === item.status;
-    });
-  }, [currentTodoList, filterValue]);
 
   const onChangeText = (text, id) => {
-    const updatedArray = currentTodoList.map((item) => {
-      if (item.id === id) {
-        return {
-          ...item,
-          value: text,
-        };
-      }
-      return item;
-    });
-    dispatch(setTodoList(updatedArray));
+    dispatch(upateTodoValue(id, text));
   };
 
   return (
     <div>
-      {array.map((item) => {
-
+      {filteredTodoList.map((item) => {
         return (
           <TaskTitle
             key={item.id}
             item={item}
             onChangeText={onChangeText}
           />
-        )
+        );
       })}
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 const TaskInput = (props) => {
   const { item, onChangeText: onTextChange } = props;
@@ -25,7 +25,6 @@ const TaskInput = (props) => {
       onDoubleClick={() => {
         setIsEditing(!isEditing)
         textValueBeforeEdit = item.value
-        console.log('textValueBeforeEdit', textValueBeforeEdit);
       }}
     >
       {isEditing
